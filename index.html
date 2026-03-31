@@ -1,0 +1,283 @@
+
+<!--
+Created using JS Bin
+http://jsbin.com
+
+Copyright (c) 2026 by surikov (http://jsbin.com/wajopuy/1/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+<html>
+    <head>
+        <title>Premium Electronic Drum Kit</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+        <script src='https://surikov.github.io/webaudiofont/npm/dist/WebAudioFontPlayer.js'></script>
+        <script src='https://surikov.github.io/webaudiofontdata/sound/12835_17_JCLive_sf2_file.js'></script>
+        <script src='https://surikov.github.io/webaudiofontdata/sound/12840_1_JCLive_sf2_file.js'></script>
+        <script src='https://surikov.github.io/webaudiofontdata/sound/12842_1_JCLive_sf2_file.js'></script>
+        <script src='https://surikov.github.io/webaudiofontdata/sound/12851_1_JCLive_sf2_file.js'></script>
+        <script src='https://surikov.github.io/webaudiofontdata/sound/12850_1_JCLive_sf2_file.js'></script>
+        <script src='https://surikov.github.io/webaudiofontdata/sound/12848_1_JCLive_sf2_file.js'></script>
+        <script src='https://surikov.github.io/webaudiofontdata/sound/12841_1_JCLive_sf2_file.js'></script>
+        <script src='https://surikov.github.io/webaudiofontdata/sound/12849_1_JCLive_sf2_file.js'></script>
+        <script src='https://surikov.github.io/webaudiofontdata/sound/12837_1_JCLive_sf2_file.js'></script>
+        <script>
+            var AudioContextFunc = window.AudioContext || window.webkitAudioContext;
+            var audioContext = new AudioContextFunc();
+            var player = new WebAudioFontPlayer();
+            player.loader.decodeAfterLoading(audioContext, '_drum_35_17_JCLive_sf2_file');
+            player.loader.decodeAfterLoading(audioContext, '_drum_40_1_JCLive_sf2_file');
+            player.loader.decodeAfterLoading(audioContext, '_drum_42_1_JCLive_sf2_file');
+            player.loader.decodeAfterLoading(audioContext, '_drum_51_1_JCLive_sf2_file');
+            player.loader.decodeAfterLoading(audioContext, '_drum_50_1_JCLive_sf2_file');
+            player.loader.decodeAfterLoading(audioContext, '_drum_48_1_JCLive_sf2_file');
+            player.loader.decodeAfterLoading(audioContext, '_drum_41_1_JCLive_sf2_file');
+            player.loader.decodeAfterLoading(audioContext, '_drum_49_1_JCLive_sf2_file');
+            player.loader.decodeAfterLoading(audioContext, '_drum_37_1_JCLive_sf2_file');
+
+            function playDrum(file, pitch) {
+                player.queueWaveTable(audioContext, audioContext.destination, window[file], 0, pitch, 3);
+                // Visual feedback
+                const element = document.querySelector(`[data-pitch="${pitch}"]`);
+                if (element) {
+                    element.classList.add('hit');
+                    setTimeout(() => element.classList.remove('hit'), 150);
+                }
+            }
+
+            // Keyboard Mapping
+            const keyMap = {
+                'Space': { file: '_drum_35_17_JCLive_sf2_file', pitch: 35 }, // Kick
+                'KeyZ': { file: '_drum_35_17_JCLive_sf2_file', pitch: 35 },  // Kick
+                'KeyX': { file: '_drum_35_17_JCLive_sf2_file', pitch: 35 },  // Kick
+                'KeyC': { file: '_drum_40_1_JCLive_sf2_file', pitch: 40 },   // Snare
+                'KeyH': { file: '_drum_42_1_JCLive_sf2_file', pitch: 42 },   // Hi-Hat
+                'KeyJ': { file: '_drum_42_1_JCLive_sf2_file', pitch: 42 },   // Hi-Hat
+                'KeyO': { file: '_drum_51_1_JCLive_sf2_file', pitch: 51 },   // Cymbal
+                'KeyP': { file: '_drum_51_1_JCLive_sf2_file', pitch: 51 },   // Cymbal
+                'KeyV': { file: '_drum_41_1_JCLive_sf2_file', pitch: 41 },   // Tom 3
+                'KeyB': { file: '_drum_48_1_JCLive_sf2_file', pitch: 48 },   // Tom 2
+                'KeyN': { file: '_drum_50_1_JCLive_sf2_file', pitch: 50 },   // Tom 1
+                'KeyK': { file: '_drum_42_1_JCLive_sf2_file', pitch: 42 },   // Closed Hi-Hat
+                'KeyL': { file: '_drum_49_1_JCLive_sf2_file', pitch: 49 },   // Crash Cymbal
+                'KeyD': { file: '_drum_37_1_JCLive_sf2_file', pitch: 37 }    // Side Snare
+            };
+
+            window.addEventListener('keydown', (e) => {
+                if (keyMap[e.code]) {
+                    e.preventDefault();
+                    playDrum(keyMap[e.code].file, keyMap[e.code].pitch);
+                }
+            });
+        </script>
+        <style type="text/css">
+            :root {
+                --primary-glow: rgba(255, 0, 255, 0.4);
+                --secondary-glow: rgba(0, 255, 255, 0.4);
+                --glass-bg: rgba(255, 255, 255, 0.05);
+                --glass-border: rgba(255, 255, 255, 0.1);
+            }
+
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+
+            body {
+                font-family: 'Outfit', sans-serif;
+                background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+                background-size: 400% 400%;
+                animation: gradientBG 15s ease infinite;
+                color: #fff;
+                min-height: 100vh;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                overflow-x: hidden;
+            }
+
+            @keyframes gradientBG {
+                0% { background-position: 0% 50%; }
+                50% { background-position: 100% 50%; }
+                100% { background-position: 0% 50%; }
+            }
+
+            .main-container {
+                position: relative;
+                padding: 2rem;
+                background: var(--glass-bg);
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+                border: 1px solid var(--glass-border);
+                border-radius: 24px;
+                box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 2rem;
+                z-index: 1;
+            }
+
+            header {
+                text-align: center;
+            }
+
+            header h1 {
+                font-weight: 800;
+                font-size: 2.5rem;
+                background: linear-gradient(to right, #ff00ff, #00ffff);
+                -webkit-background-clip: text;
+                background-clip: text;
+                -webkit-text-fill-color: transparent;
+                margin-bottom: 0.5rem;
+                letter-spacing: -1px;
+            }
+
+            header p {
+                font-weight: 300;
+                opacity: 0.8;
+                letter-spacing: 1px;
+            }
+
+            .drum-wrapper {
+                position: relative;
+                width: 600px;
+                height: 509px;
+                border-radius: 12px;
+                overflow: hidden;
+                box-shadow: 0 0 40px rgba(0,0,0,0.5);
+            }
+
+            .drum-wrapper img {
+                display: block;
+                filter: brightness(0.9) contrast(1.1);
+            }
+
+            .drum-pad {
+                position: absolute;
+                cursor: pointer;
+                transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                border-radius: 50%;
+                opacity: 0.3;
+                background: rgba(255, 255, 255, 0.1);
+            }
+
+            .drum-pad:hover {
+                background: rgba(255, 255, 255, 0.2);
+                opacity: 0.5;
+                box-shadow: 0 0 20px var(--secondary-glow);
+            }
+
+            .drum-pad.hit {
+                background: rgba(255, 255, 255, 0.4);
+                transform: scale(1.05);
+                opacity: 0.8;
+                box-shadow: 0 0 30px var(--primary-glow);
+            }
+
+            .bassStyle { left: 220px; top: 280px; width: 170px; height: 170px; border-radius: 50%; }
+            .snareStyle { left: 393px; top: 239px; width: 140px; height: 70px; border-radius: 35px / 35px; }
+            .hihatStyle { left: 463px; top: 133px; width: 143px; height: 86px; border-radius: 70px / 43px; }
+            .cymbalStyle { left: 76px; top: 27px; width: 160px; height: 95px; border-radius: 80px / 47px; }
+            .tom1Style { left: 308px; top: 133px; width: 127px; height: 100px; border-radius: 63px / 50px; }
+            .tom2Style { left: 165px; top: 138px; width: 136px; height: 110px; border-radius: 68px / 55px; }
+            .tom3Style { left: 41px; top: 255px; width: 155px; height: 164px; border-radius: 77px / 82px; }
+
+            .controls-hint {
+                margin-top: 1rem;
+                font-size: 0.8rem;
+                opacity: 0.6;
+                display: flex;
+                gap: 1rem;
+            }
+
+            kbd {
+                background: rgba(255,255,255,0.1);
+                border: 1px solid rgba(255,255,255,0.2);
+                border-radius: 4px;
+                padding: 2px 6px;
+                font-family: monospace;
+            }
+
+            footer {
+                margin-top: 3rem;
+                text-align: center;
+                opacity: 0.5;
+                font-weight: 300;
+                font-size: 0.9rem;
+            }
+
+            footer a {
+                color: #00ffff;
+                text-decoration: none;
+                transition: color 0.3s;
+            }
+
+            footer a:hover {
+                color: #ff00ff;
+            }
+
+            /* Floating background elements */
+            .blob {
+                position: fixed;
+                width: 300px;
+                height: 300px;
+                background: linear-gradient(135deg, #ff00ff22, #00ffff22);
+                filter: blur(80px);
+                border-radius: 50%;
+                z-index: 0;
+                animation: float 20s infinite linear;
+            }
+
+            @keyframes float {
+                0% { transform: translate(0, 0) scale(1); }
+                33% { transform: translate(100px, 100px) scale(1.2); }
+                66% { transform: translate(-100px, 200px) scale(0.8); }
+                100% { transform: translate(0, 0) scale(1); }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="blob" style="top: 10%; left: 10%;"></div>
+        <div class="blob" style="bottom: 10%; right: 10%; animation-delay: -5s;"></div>
+
+        <div class="main-container">
+            <header>
+                <h1>ELÉTRONICA DRUMS</h1>
+                <p>Premium Web Audio Experience</p>
+            </header>
+
+            <div class="drum-wrapper">
+                <img src="https://surikov.github.io/webaudiofont/img/drums.jpg" width="600" height="509" alt="Drum Kit">
+                
+                <div class="drum-pad bassStyle" data-pitch="35" onmousedown="playDrum('_drum_35_17_JCLive_sf2_file', 35);"></div>
+                <div class="drum-pad snareStyle" data-pitch="40" onmousedown="playDrum('_drum_40_1_JCLive_sf2_file', 40);"></div>
+                <div class="drum-pad hihatStyle" data-pitch="42" onmousedown="playDrum('_drum_42_1_JCLive_sf2_file', 42);"></div>
+                <div class="drum-pad cymbalStyle" data-pitch="51" onmousedown="playDrum('_drum_51_1_JCLive_sf2_file', 51);"></div>
+                <div class="drum-pad tom1Style" data-pitch="50" onmousedown="playDrum('_drum_50_1_JCLive_sf2_file', 50);"></div>
+                <div class="drum-pad tom2Style" data-pitch="48" onmousedown="playDrum('_drum_48_1_JCLive_sf2_file', 48);"></div>
+                <div class="drum-pad tom3Style" data-pitch="41" onmousedown="playDrum('_drum_41_1_JCLive_sf2_file', 41);"></div>
+            </div>
+
+            <div class="controls-hint">
+                <span><kbd>Space</kbd>/<kbd>Z</kbd>/<kbd>X</kbd> Kick</span>
+                <span><kbd>C</kbd>/<kbd>D</kbd> Snare</span>
+                <span><kbd>H</kbd>/<kbd>J</kbd>/<kbd>K</kbd> Hi-Hat</span>
+                <span><kbd>O</kbd>/<kbd>P</kbd>/<kbd>L</kbd> Cymbal</span>
+                <span><kbd>V</kbd>/<kbd>B</kbd>/<kbd>N</kbd> Toms</span>
+            </div>
+        </div>
+
+        <footer>
+            <p>Powered by <a href="https://github.com/surikov/webaudiofont" target="_blank">WebAudioFont</a></p>
+        </footer>
+    </body>
+</html>
+</html>
